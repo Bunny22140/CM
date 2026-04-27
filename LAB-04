@@ -1,0 +1,25 @@
+launch instance my ec2
+my-andy-1065 , aws linux , key pair , t3 micro and
+SG 
+ssh anywhere , all traffic anywhere and Http anywhere
+
+in aws console
+sudo dnf install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl status httpd
+sudo vi /var/www/html/index.html
+<h1>EC2 Migration Test (Andrew PRN - 20230801065)</h1>
+http://<public-ip>
+
+click ec2 create an ami image
+give name
+
+from that ami launch ec2 
+same vpc , key pair and sg
+t3.micro
+
+in ami ec2 console
+sudo systemctl status httpd
+
+http://<new-public-ip>
