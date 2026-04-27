@@ -1,0 +1,41 @@
+Create IAM User
+attach admin access policy
+fetch access id
+
+create an ec2 instance
+default setting (in sg ssh anywhere , all traffic anywhere)
+
+in aws ec2 console
+sudo yum install aws-cli -y
+aws configure
+mkdir auto-migration-project
+cd auto-migration-project
+echo "This is file 1" > file1.txt
+echo "This is file 2" > file2.txt
+
+create s3 bucket default settings
+auto-migration-bucket-1065 
+
+in aws ec2 console
+nano migrate.sh
+#!/bin/bash
+aws s3 cp /home/ec2-user/auto-migration-project/ s3://auto-migration-bucket-1065/ --recursive
+chmod +x migrate.sh
+./migrate.sh
+aws s3 ls s3://auto-migration-bucket-1065/
+
+sudo dnf install cronie -y
+sudo systemctl start crond
+sudo systemctl enable crond
+
+crontab -e
+*/2 * * * * /home/ec2-user/auto-migration-project/migrate.sh
+
+after 2 minutes
+
+echo "New contents" >> file3.txt
+echo "New World Order" >> file4.txt
+
+aws s3 ls s3://auto-migration-bucket-1065/
+aws s3 cp s3://auto-migration-bucket-1065/file3.txt .
+cat file3.txt
