@@ -1,0 +1,35 @@
+in case local system does not have
+aws cli , go to aws documentation in aws then click aws command
+line interface user guide , install windows version
+
+then check in cmd aws --version
+
+create iam user
+attach policy admin access
+fetch Access id
+
+in cmd 
+create files in D: drive or any drive
+mkdir migration-project-65
+cd migration-project-65
+echo User: Andrew > data1.txt
+echo Course: Cloud Computing > data2.txt
+echo { "project": "cloud migration", "status": "success" } > info.json
+
+create s3 bucket in ap south 1 default settings (student-migration-bucket-1065)
+
+in cmd
+aws configure
+give access key
+aws s3 cp . s3://student-migration-bucket-1065/ --recursive
+aws s3 ls s3://student-migration-bucket-1065/
+
+create ec2 to access s3 data
+default ( All Trafic and Ssh Anywhere)
+
+inside ec2 console
+sudo yum install aws-cli -y
+aws configure
+aws s3 ls s3://student-migration-bucket-1065
+aws s3 cp s3://student-migration-bucket-1065/data1.txt .
+cat data1.txt
