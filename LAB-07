@@ -1,0 +1,59 @@
+download AWS CLI User Guide 
+in AWS Documentation in aws
+install aws cli in local system .. if not available
+
+in iam create user
+attach admin full access policy
+fetch access id
+
+in CMD AWS CLI
+In d: drive or any drive
+mkdir advanced-migration-project
+cd advanced-migration-project
+echo "<h1>Welcome to Cloud Migration (Andrew-1065)</h1>" > index.html
+echo "Sample data file" > data.txt
+
+my-advanced-bucket-1065 create s3 bucket
+disable public block
+ap-south-1
+
+in cmd aws cli
+aws configure
+aws s3 cp . s3://my-advanced-bucket-1065/ --recursive
+aws s3 ls s3://my-advanced-bucket-1065/
+
+launch ec2 instance
+name
+default setting ( SG , HTTP ,HTTPS , SSH and All traffic Anywhere)
+
+in aws ec2 console
+sudo yum install aws-cli -y
+sudo yum update -y
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+aws configure
+
+aws s3 cp s3://my-advanced-bucket-1065/index.html index.html
+aws s3 cp s3://my-advanced-bucket-1065/data.txt data.txt
+sudo mv index.html /var/www/html/
+sudo mv data.txt /var/www/html/
+
+http://<public-ip>
+
+next CDN
+free plan
+name
+ec2 dns paste in specify origin (other)
+customize origin settings (HTTP Only)
+
+after cdn edit settings
+default root object index.html
+
+https://dxxxxx.cloudfront.net
+
+in aws ec2 console
+echo "<h1>Updated Version</h1>" | sudo tee /var/www/html/index.html
+sudo systemctl restart httpd
+
+https://dxxxxx.cloudfront.net (refresh)
