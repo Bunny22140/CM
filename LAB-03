@@ -1,0 +1,118 @@
+create ec2 instance
+aws linux key pair t3 micro
+
+security group
+ssh anywhere
+mysql anywhere
+all traffic anywhere
+
+in aws console
+sudo dnf install mariadb105-server -y
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
+sudo mysql
+
+CREATE DATABASE studentdb;
+USE studentdb;
+
+CREATE TABLE students (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50)
+);
+
+INSERT INTO students (name) VALUES ('Andrew');
+
+select * from students;
+exit;
+
+sudo vi /etc/my.cnf
+
+add this code in file
+
+!includedir /etc/my.cnf.d
+
+[mysqld]
+bind-address=0.0.0.0
+log_bin=mysql-bin
+server-id=1
+binlog_format=ROW
+
+sudo systemctl restart mariadb
+
+create rds
+sql engine , full configuration and free tier
+studentdb-instance
+admin , pass 12345678  same vpc and sg as ec2 , public access no
+
+in ec2
+
+mysql -h studentdb-instance.cx6ko6ciy1i3.ap-south-1.rds.amazonaws.com  -u admin -p
+CREATE DATABASE studentdb;
+exit;
+
+dms (replication instance)name
+t3 small
+default vpc and sg same as ec2
+dev or test workload
+
+source endpoint
+name
+mysql engine
+ssl none
+server name private ip
+3306
+dms_user  password123
+
+create it Before that in ec2 console
+sudo mysql
+
+CREATE USER 'dms_user'@'%' IDENTIFIED BY 'password123';
+GRANT ALL PRIVILEGES ON *.* TO 'dms_user'@'%';
+FLUSH PRIVILEGES;
+
+run test
+
+create target endpoint
+
+select rds db instance
+name
+
+engine mysql
+provide access manually
+3306
+admin 12345678
+
+ssl none
+run test
+
+create task
+name
+source and target select
+provisioned choosed your instance
+full load cdc
+
+table mappings
+studentdb 
+%
+include
+
+turn off premigration assessment create task
+
+task done
+
+go to ec2 console
+check rds
+mysql -h studentdb-instance.cx6ko6ciy1i3.ap-south-1.rds.amazonaws.com  -u admin -p
+USE studentdb;
+SHOW TABLES;
+SELECT * FROM students;
+
+in ec2
+sudo mysql
+USE studentdb;
+INSERT INTO students (name) VALUES ('NewUser');
+
+in rds (in ec2)
+mysql -h studentdb-instance.cx6ko6ciy1i3.ap-south-1.rds.amazonaws.com  -u admin -p
+USE studentdb;
+SELECT * FROM students;
